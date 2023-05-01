@@ -2,8 +2,9 @@ class Player {
   constructor() {
    this.name = null; 
    this.index = null; 
-   this.positionX = 0; 
-   this.positionX = 0; 
+   this.positionX = 0;
+    //cambiar X por Y 
+   this.positionY = 0; 
   }
 
   addPlayer(){
@@ -35,6 +36,8 @@ class Player {
   update(){
     var playerIndex = "players/player" + this.index;
     database.ref(playerIndex).update({
+      //agregar name
+      name: this.name,
       positionX: this.positionX,
       positionY: this.positionY
     });
