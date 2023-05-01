@@ -38,7 +38,7 @@ function setup() {
   // Llamar a la funcion getState
   game.getState(); 
   game.start(); 
-  bgImg = backgroundImage; 
+  //bgImg = backgroundImage; 
   
 }
 
