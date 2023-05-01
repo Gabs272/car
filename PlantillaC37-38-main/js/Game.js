@@ -70,44 +70,59 @@ class Game {
       image(track, 0, -height*5, width, height*6);
       var index = 0; 
       for(var plr in allPlayers){ 
-        var x = allPlayers[plr].positionX; 
-        var y = allPlayers[plr].positionY; 
-        cars[index].position.x = x; 
-        cars[index].position.y = y; 
         index = index + 1; 
+        var x = allPlayers[plr].positionX; 
+        // agregar valor heigth - para convertir el valor a negativo  
+        var y =  height - allPlayers[plr].positionY; 
+        //agregar -1 a index así: 
+        cars[index-1].position.x = x; 
+        cars[index-1].position.y = y; 
+       
 
         if(index === player.index){
           stroke(10);
           fill("red");
-          elipse(x,y,60,60);
-        }
-      
-        this.handleFuel(index);
-        this.handleCoin(index);
+          //agregar una l estaba en elipse ---> ellipse
+          ellipse(x,y,60,60);
+          // Las siguientes lineas deberán estar dentro del if
+         
+          this.handleFuel(index);
+          this.handleCoin(index);
 
-        camera.position.x = cars[index-1].position.x;
-        camera.position.y = cars[index-1].position.y;
+          camera.position.x = cars[index-1].position.x;
+          camera.position.y = cars[index-1].position.y;
+          }             
       } 
+       
+      //Mover la condición dentro de la condición que valida todos los jugadores 
+      
+       if(keyIsDown(UP_ARROW)){ 
+        player.positionY +=10; 
+        player.update(); 
+       } 
+    drawSprites();
+       
     } 
-    if(keyIsDown(UP_ARROW)){ 
-      player.positionY +=10; 
-      player.update(); 
-    } 
-    drawSprites(); 
+     
   }
+  
+  //agregar el parámetro de index
+  //cambiar colected x collected
 
-  handleFuel(){
+  handleFuel(index){
     cars[index-1].overlap(fuels, function(colector, colected){
       player.fuel = 185;
       colected.remove();
     })
   }
-
-  handleCoin(){
-    cars[index-1].overlap(powerCoins, function(colector, colected){
+  
+  //agregar el parámetro de index
+  //cambiar colected x collected
+  handleCoin(index){
+    cars[index-1].overlap(powerCoins, function(colector, collected){
       player.score += 21;
       player.update();
-      colected.remove();
+      collected.remove();
     })
   }
   
